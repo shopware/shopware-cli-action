@@ -1,6 +1,6 @@
 name: 'Shopware CLI Action'
 description: 'GitHub Action for Shopware CLI, a command line tool helper for Shopware'
-author: 'FriendsOfShopware'
+author: 'shopware AG'
 branding:
   color: 'green'
   icon: 'package'

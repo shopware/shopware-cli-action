@@ -25,9 +25,8 @@ jobs:
           fetch-depth: 0
 
       - name: Install Shopware CLI
-        uses: FriendsOfShopware/shopware-cli-action@v1
+        uses: shopware/shopware-cli-action@v1
 
       - name: Build and Package Extension
         run: shopware-cli extension zip .
 ```
-

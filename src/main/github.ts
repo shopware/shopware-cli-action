@@ -4,54 +4,54 @@ import { Octokit } from '@octokit/action';
 import { RequestError } from '@octokit/request-error';
 
 export interface GitHubRelease {
-  tag_name: string;
+    tag_name: string;
 }
 
 const octokit = new Octokit();
 
 async function getReleaseTag(tag: string) {
-  try {
-    const { data } = await octokit.rest.repos.getReleaseByTag({
-      owner: 'FriendsOfShopware',
-      repo: 'shopware-cli',
-      tag,
-    });
+    try {
+        const { data } = await octokit.rest.repos.getReleaseByTag({
+            owner: 'shopware',
+            repo: 'shopware-cli',
+            tag,
+        });
 
-    return data;
-  } catch (error) {
-    if (error instanceof RequestError) {
-      debug(`Could not fetch release ${tag} with status ${error.status}, ${error.message}`);
+        return data;
+    } catch (error) {
+        if (error instanceof RequestError) {
+            debug(`Could not fetch release ${tag} with status ${error.status}, ${error.message}`);
+        }
+
+        throw error;
     }
-
-    throw error;
-  }
 }
 
 async function getLatestRelease() {
-  try {
-    const { data } = await octokit.rest.repos.getLatestRelease({
-      owner: 'FriendsOfShopware',
-      repo: 'shopware-cli',
-    });
+    try {
+        const { data } = await octokit.rest.repos.getLatestRelease({
+            owner: 'shopware',
+            repo: 'shopware-cli',
+        });
 
-    return data;
-  } catch (error) {
-    if (error instanceof RequestError) {
-      debug(`Could not fetch latest release with status ${error.status}, ${error.message}`);
+        return data;
+    } catch (error) {
+        if (error instanceof RequestError) {
+            debug(`Could not fetch latest release with status ${error.status}, ${error.message}`);
+        }
+
+        throw error;
     }
-
-    throw error;
-  }
 }
 
 export async function getRelease(
-  version: string,
+    version: string,
 ) {
-  debug(`Fetching release ${version}`);
+    debug(`Fetching release ${version}`);
 
-  if (version === 'latest') {
-    return getLatestRelease();
-  }
+    if (version === 'latest') {
+        return getLatestRelease();
+    }
 
-  return getReleaseTag(version);
+    return getReleaseTag(version);
 }
