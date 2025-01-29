@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "build": "bunx --bun esbuild --minify --platform=node --format=cjs --bundle src/main/main.ts --outdir=dist/main && bunx --bun esbuild --minify --platform=node --format=cjs --bundle src/post/main.ts --outdir=dist/post"
+    "build": "bunx --bun esbuild --platform=node --format=cjs --bundle src/main/main.ts --outdir=dist/main && bunx --bun esbuild --platform=node --format=cjs --bundle src/post/main.ts --outdir=dist/post"
   },
   "keywords": [],
   "author": "",
