@@ -9,9 +9,11 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
-    "useUnknownInCatchVariables": true,
+    "skipLibCheck": true
   },
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
+    "**/@types/**"
   ]
 }

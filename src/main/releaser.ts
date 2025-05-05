@@ -85,7 +85,7 @@ export async function install(version: string) {
   }
 
   const filename = getFilename();
-  const downloadUrl = release.assets.find((asset) => asset.name === filename)?.browser_download_url;
+  const downloadUrl = release.assets.find((asset: { name: string; browser_download_url: string }) => asset.name === filename)?.browser_download_url;
 
   if (!downloadUrl) {
     throw new Error(`No asset found with the filename: ${filename}`);

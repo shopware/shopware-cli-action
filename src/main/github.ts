@@ -5,6 +5,11 @@ import { RequestError } from '@octokit/request-error';
 
 export interface GitHubRelease {
     tag_name: string;
+    prerelease: boolean;
+    assets: Array<{
+        name: string;
+        browser_download_url: string;
+    }>;
 }
 
 const octokit = new Octokit();

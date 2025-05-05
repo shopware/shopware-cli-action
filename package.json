@@ -17,5 +17,8 @@
     "@octokit/request-error": "^6.1.8",
     "@types/node": "^22.15.3",
     "global-cache-dir": "^6.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }
