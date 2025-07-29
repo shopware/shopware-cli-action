@@ -1,9 +1,15 @@
 # Shopware CLI GitHub Action
 
-Installs Shopware CLI in your GitHub Actions.
+Easily install the [Shopware CLI](https://github.com/shopware/shopware-cli) in your GitHub Actions workflows. Ready-to-use for building and packaging Shopware extensions in your CI pipelines.
 
+## Prerequisites
 
-## Usage
+- A GitHub repository using GitHub Actions.
+- Recommended: Use on a Linux runner (e.g., `ubuntu-latest`).
+
+## Setup
+
+Create a file in your repository (e.g., `.github/workflows/shopware-cli.yml`) with the following contents:
 
 ```yaml
 name: shopware-cli
@@ -30,3 +36,7 @@ jobs:
       - name: Build and Package Extension
         run: shopware-cli extension zip .
 ```
+
+## More Information
+
+For more Shopware CLI documentation, visit [our developer docs](https://developer.shopware.com/docs/products/cli/).
