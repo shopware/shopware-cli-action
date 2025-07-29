@@ -9,8 +9,6 @@ Easily install the [Shopware CLI](https://github.com/shopware/shopware-cli) in y
 
 ## Setup
 
-1. **Add Workflow File** 
-
 Create a file in your repository (e.g., `.github/workflows/shopware-cli.yml`) with the following contents:
 
 ```yaml
@@ -38,24 +36,6 @@ jobs:
       - name: Build and Package Extension
         run: shopware-cli extension zip .
 ```
-
-2. **Commit and Push**
-
-Add, commit, and push your workflow file to your repository. The workflow will now run automatically on pushes and pull requests.
-
-## How it Works
-
-- The action installs the **Shopware CLI** binary into your workflow runner.
-- You can now run any `shopware-cli` command directly in your workflow—for example, build and package your extension with:
-
-  ```bash
-  shopware-cli extension zip .
-  ```
-
-## Customization
-
-- Modify the `run` command step to match your specific Shopware CLI workflow needs.
-- Combine with other GitHub Actions for test, code quality, etc. as required.
 
 ## More Information
 
