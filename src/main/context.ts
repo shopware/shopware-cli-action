@@ -1,9 +1,9 @@
-import { platform, arch } from 'node:os';
-import { getInput } from '@actions/core';
+import { arch, platform } from "node:os";
+import { getInput } from "@actions/core";
 
 export const osPlat: string = platform();
 export const osArch: string = arch();
 
 export const inputs = {
-  version: getInput('version') || 'latest',
+	version: getInput("version") || "latest",
 };

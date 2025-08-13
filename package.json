@@ -1,23 +1,23 @@
 {
-  "name": "shopware-cli-action",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/main.ts",
-  "scripts": {
-    "build": "bunx --bun esbuild --minify --keep-names --platform=node --format=cjs --bundle src/main/main.ts --outdir=dist/main"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "@actions/core": "^1.11.1",
-    "@actions/tool-cache": "^2.0.2",
-    "@octokit/action": "^8.0.2",
-    "@octokit/request-error": "^7.0.0",
-    "@types/node": "^24.2.1",
-    "global-cache-dir": "^6.0.1"
-  },
-  "devDependencies": {
-    "typescript": "^5.9.2"
-  }
+	"name": "shopware-cli-action",
+	"version": "1.0.0",
+	"description": "",
+	"main": "src/main.ts",
+	"scripts": {
+		"build": "bunx --bun esbuild --minify --keep-names --platform=node --format=cjs --bundle src/main/main.ts --outdir=dist/main"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"@actions/core": "^1.11.1",
+		"@actions/tool-cache": "^2.0.2",
+		"@octokit/action": "^8.0.2",
+		"@octokit/request-error": "^7.0.0",
+		"@types/node": "^24.2.1",
+		"global-cache-dir": "^6.0.1"
+	},
+	"devDependencies": {
+		"typescript": "^5.9.2"
+	}
 }
