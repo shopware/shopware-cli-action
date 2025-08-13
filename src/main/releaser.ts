@@ -1,5 +1,5 @@
-import { renameSync } from 'fs';
-import { join } from 'path';
+import { renameSync } from 'node:fs';
+import { join } from 'node:path';
 import { info, debug, exportVariable } from '@actions/core';
 import {
   extractZip, extractTar, downloadTool, cacheDir,
@@ -7,9 +7,6 @@ import {
 import { osArch, osPlat } from './context';
 
 import { getRelease } from './github';
-import globalCacheDir from 'global-cache-dir'
-import { restoreCache, isFeatureAvailable } from '@actions/cache';
-import { getCacheKeys } from '../shared/cache';
 
 function getFilename() {
   let arch: string;
@@ -70,19 +67,6 @@ export async function install(version: string) {
 
   exportVariable("SHOPWARE_CLI_VERSION", release.tag_name)
   process.env.SHOPWARE_CLI_VERSION = release.tag_name;
-
-  const shopwareCliCacheDir = await globalCacheDir('shopware-cli');
-
-  if (isFeatureAvailable()) {
-    const cacheKeys = getCacheKeys();
-
-    await restoreCache([
-      shopwareCliCacheDir
-    ],
-    cacheKeys.shift() as string,
-    cacheKeys
-    )
-  }
 
   const filename = getFilename();
   const downloadUrl = release.assets.find((asset: { name: string; browser_download_url: string }) => asset.name === filename)?.browser_download_url;
