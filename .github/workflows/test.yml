@@ -31,3 +31,18 @@ jobs:
 
       - name: Validate
         run: shopware-cli extension validate FroshTools-*.zip
+
+  test-specific-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v6
+
+      - name: Install Shopware CLI
+        uses: ./
+        with:
+          version: "0.7.1"
+
+      - name: Test binary
+        run: shopware-cli --version

@@ -4,14 +4,6 @@ import { inputs } from "./context";
 import { install } from "./releaser";
 
 async function run() {
-	delete process.env.GITHUB_TOKEN;
-
-	if (process.env.GITHUB_API_URL !== 'https://api.github.com') {
-		delete process.env.GITHUB_API_URL;
-		delete process.env.INPUT_GITHUB_TOKEN;
-		delete process.env.INPUT_TOKEN;
-	}
-
 	try {
 		const { bin, version } = await install(inputs.version);
 		info(`shopware-cli ${version} installed successfully`);

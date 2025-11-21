@@ -12,8 +12,6 @@
 	"dependencies": {
 		"@actions/core": "^1.11.1",
 		"@actions/tool-cache": "^2.0.2",
-		"@octokit/action": "^8.0.2",
-		"@octokit/request-error": "^7.0.0",
 		"@types/node": "^24.2.1"
 	},
 	"devDependencies": {

@@ -1,15 +1,11 @@
-import { renameSync } from "node:fs";
 import { join } from "node:path";
-import { debug, exportVariable, info } from "@actions/core";
+import { debug, info } from "@actions/core";
 import {
 	cacheDir,
 	downloadTool,
 	extractTar,
-	extractZip,
 } from "@actions/tool-cache";
 import { osArch, osPlat } from "./context";
-
-import { getRelease } from "./github";
 
 function getFilename() {
 	let arch: string;
@@ -23,10 +19,7 @@ function getFilename() {
 			break;
 		}
 		case "arm": {
-			const { arm_version: armVersion } = process.config.variables as {
-				arm_version?: string;
-			};
-			arch = armVersion ? `armv${armVersion}` : "arm";
+			arch = "arm64";
 			break;
 		}
 		default: {
@@ -34,14 +27,8 @@ function getFilename() {
 			break;
 		}
 	}
-	if (osPlat === "darwin") {
-		arch = "all";
-	}
 
 	switch (osPlat) {
-		case "win32": {
-			return `shopware-cli_Windows_${arch}.zip`;
-		}
 		case "darwin": {
 			return `shopware-cli_Darwin_${arch}.tar.gz`;
 		}
@@ -51,36 +38,12 @@ function getFilename() {
 	}
 }
 
-async function extractArchive(path: string): Promise<string> {
-	if (osPlat === "win32") {
-		if (!path.endsWith(".zip")) {
-			const newPath = `${path}.zip`;
-			renameSync(path, newPath);
-			return extractZip(newPath);
-		}
-		return extractZip(path);
-	}
-	return extractTar(path);
-}
-
 export async function install(version: string) {
-	const release = await getRelease(version);
-
-	if (release.prerelease) {
-		debug(`Release ${version} is a pre-release`);
-	}
-
-	exportVariable("SHOPWARE_CLI_VERSION", release.tag_name);
-	process.env.SHOPWARE_CLI_VERSION = release.tag_name;
-
 	const filename = getFilename();
-	const downloadUrl = release.assets.find(
-		(asset: { name: string; browser_download_url: string }) =>
-			asset.name === filename,
-	)?.browser_download_url;
+	let downloadUrl = `https://github.com/shopware/shopware-cli/releases/download/${version}/${filename}`
 
-	if (!downloadUrl) {
-		throw new Error(`No asset found with the filename: ${filename}`);
+	if (version === 'latest') {
+		downloadUrl = `https://github.com/shopware/shopware-cli/releases/latest/download/${filename}`
 	}
 
 	info(`Downloading ${downloadUrl}`);
@@ -88,13 +51,13 @@ export async function install(version: string) {
 	debug(`Downloaded to ${downloadPath}`);
 
 	info("Extracting shopware-cli");
-	const extPath = await extractArchive(downloadPath);
+	const extPath = await extractTar(downloadPath);
 	debug(`Extracted to ${extPath}`);
 
 	const cachePath = await cacheDir(
 		extPath,
 		"shopware-cli-action",
-		release.tag_name.replace(/^v/, ""),
+		version,
 	);
 	debug(`Cached to ${cachePath}`);
 
@@ -104,5 +67,5 @@ export async function install(version: string) {
 	);
 	debug(`Exe path is ${exePath}`);
 
-	return { bin: exePath, version: release.tag_name };
+	return { bin: exePath, version: version };
 }
