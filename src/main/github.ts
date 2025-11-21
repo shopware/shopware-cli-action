@@ -12,7 +12,8 @@ export interface GitHubRelease {
 	}>;
 }
 
-const octokit = new Octokit();
+// Force GitHub public API so the action works on platforms that override GITHUB_API_URL (e.g. Gitea)
+const octokit = new Octokit({ baseUrl: "https://api.github.com" });
 
 async function getReleaseTag(tag: string) {
 	try {
