@@ -15,9 +15,10 @@ async function run() {
 	} catch (error) {
 		if (error instanceof Error) {
 			setFailed(error.message);
+			return;
 		}
 
-		setFailed("Error is not an instance of Error");
+		setFailed(String(error));
 	}
 }
 
