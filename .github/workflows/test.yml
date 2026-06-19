@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Setup repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install Shopware CLI
         uses: ./.
@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: Setup repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install Shopware CLI
         uses: ./
